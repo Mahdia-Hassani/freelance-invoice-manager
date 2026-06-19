@@ -8,8 +8,6 @@ A modern freelance invoice and client management web application built with vani
 
 ---
 
-## 📌 Features
-
 ### 👥 Clients Module
 
 - Add, edit, and delete clients

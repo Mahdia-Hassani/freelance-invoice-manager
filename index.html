@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice Tracker | Dashboard</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <i class="fa-solid fa-file-invoice-dollar logo-icon"></i>
+          <h2>Invoice Tracker</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="index.html" class="nav-link active">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="clients.html" class="nav-link">
+            <i class="fa-solid fa-users"></i>
+            <span>Clients</span>
+          </a>
+
+          <a href="invoices.html" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Invoices</span>
+          </a>
+        </nav>
+
+        <button id="toggleSidebar" class="toggle-btn" title="Toggle Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+          <h1>Dashboard</h1>
+          <p>Track your clients, invoices and revenue.</p>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+          <article class="card stat-card">
+            <div class="card-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+              <h3>Total Clients</h3>
+              <p id="totalClients">0</p>
+            </div>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-icon">
+              <i class="fa-solid fa-file-invoice"></i>
+            </div>
+
+            <div>
+              <h3>Total Invoices</h3>
+              <p id="totalInvoices">0</p>
+            </div>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-icon">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+
+            <div>
+              <h3>Total Revenue</h3>
+              <p id="totalRevenue">$0</p>
+            </div>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div>
+              <h3>Paid Invoices</h3>
+              <p id="paidInvoices">0</p>
+            </div>
+          </article>
+        </section>
+
+        <!-- Revenue Overview -->
+        <section class="card">
+          <h2>Revenue Overview</h2>
+
+          <div class="overview-grid">
+            <div class="overview-item">
+              <h4>Paid</h4>
+              <p id="paidCount">0</p>
+            </div>
+
+            <div class="overview-item">
+              <h4>Unpaid</h4>
+              <p id="unpaidCount">0</p>
+            </div>
+
+            <div class="overview-item">
+              <h4>Completion Rate</h4>
+              <p id="completionRate">0%</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Motivational Quote -->
+        <section class="card quote-card">
+          <h2>Motivational Quote</h2>
+
+          <blockquote id="quoteText">Loading quote...</blockquote>
+
+          <p id="quoteAuthor">Unknown</p>
+        </section>
+
+        <!-- Recent Invoices -->
+        <section class="card">
+          <div class="section-header">
+            <h2>Recent Invoices</h2>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Service</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="recentInvoices">
+                <!-- JavaScript Render -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

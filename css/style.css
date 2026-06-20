@@ -302,6 +302,9 @@ select:focus {
   color: white;
   transition: 0.2s ease;
 }
+.btn-icon:not(:last-child) {
+  margin-right: 6px;
+}
 
 .btn-icon:hover {
   transform: translateY(-2px);
@@ -330,6 +333,7 @@ select:focus {
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 700px;
 }
 
 thead {
@@ -413,12 +417,7 @@ blockquote {
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
-    width: var(--sidebar-collapsed);
-  }
-
-  .sidebar-header h2,
-  .nav-link span {
+  .sidebar-header h2 {
     display: none;
   }
 
@@ -435,13 +434,16 @@ blockquote {
   .sidebar {
     width: 100%;
     height: auto;
+    position: static;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .sidebar-nav {
+    display: flex;
     flex-direction: row;
+    gap: 8px;
     overflow-x: auto;
   }
 
@@ -463,11 +465,23 @@ blockquote {
     width: 100%;
     justify-content: center;
   }
+
+  .toggle-btn {
+    display: none;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .page-header h1 {
     font-size: 1.5rem;
+  }
+
+  blockquote {
+    font-size: 1rem;
   }
 
   .card {

@@ -2,7 +2,7 @@
 // ID GENERATOR
 // =========================
 export function generateId() {
-  return Date.now();
+  return Date.now() + Math.floor(Math.random() * 1000);
 }
 
 // =========================
@@ -16,7 +16,10 @@ export function validateEmail(email) {
 // FORMAT CURRENCY
 // =========================
 export function formatCurrency(amount) {
-  return `$${Number(amount).toFixed(2)}`;
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
 }
 
 // =========================
@@ -47,6 +50,10 @@ export async function fetchQuote() {
   try {
     const res = await fetch("https://zenquotes.io/api/quotes");
     const data = await res.json();
+
+    if (!Array.isArray(data) || !data.length) {
+      throw new Error("Invalid quote response");
+    }
 
     const quote = data[0];
 

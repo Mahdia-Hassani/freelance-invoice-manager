@@ -100,8 +100,8 @@ form.addEventListener("submit", (e) => {
   const amount = amountInput.value;
   const date = dateInput.value;
 
-  if (!clientId || !title || !amount || !date) {
-    alert("Please fill required fields!");
+  if (isNaN(amount) || Number(amount) <= 0) {
+    alert("Amount must be greater than 0");
     return;
   }
 
@@ -115,8 +115,8 @@ form.addEventListener("submit", (e) => {
             ...inv,
             clientId,
             title,
-            description: descInput.value,
-            amount,
+            description: descInput.value.trim(),
+            amount: Number(amount),
             date,
           }
         : inv,
@@ -127,8 +127,8 @@ form.addEventListener("submit", (e) => {
       id: generateId(),
       clientId,
       title,
-      description: descInput.value,
-      amount,
+      description: descInput.value.trim(),
+      amount: Number(amount),
       date,
       paid: false,
     };
@@ -146,6 +146,8 @@ form.addEventListener("submit", (e) => {
 // =========================
 window.editInvoice = function (id) {
   const invoice = invoices.find((i) => i.id === id);
+
+  if (!invoice) return;
 
   clientSelect.value = invoice.clientId;
   titleInput.value = invoice.title;
@@ -174,7 +176,7 @@ window.deleteInvoice = function (id) {
 // =========================
 window.toggleStatus = function (id) {
   invoices = invoices.map((inv) =>
-    inv.id === id ? { ...inv, paid: !inv.paid } : inv,
+    inv.id == id ? { ...inv, paid: !inv.paid } : inv,
   );
 
   saveInvoices(invoices);

@@ -27,7 +27,13 @@ async function init() {
   const localData = getClients();
 
   if (localData.length === 0) {
-    clients = await fetchRandomClients();
+    try {
+      clients = await fetchRandomClients();
+    } catch (error) {
+      console.error(error);
+      clients = [];
+    }
+
     saveClients(clients);
   } else {
     clients = localData;
@@ -53,7 +59,6 @@ function renderClients(data = clients) {
             <td>${client.company || "-"}</td>
             <td>${client.notes || "-"}</td>
             <td>
-                <td>
     <button class="btn-icon edit" onclick="editClient(${client.id})">
         <i class="fa-solid fa-pen"></i>
     </button>
@@ -61,8 +66,8 @@ function renderClients(data = clients) {
     <button class="btn-icon delete" onclick="deleteClient(${client.id})">
         <i class="fa-solid fa-trash"></i>
     </button>
-</td>
-            </td>
+    </td>
+
         `;
 
     tableBody.appendChild(row);
@@ -78,8 +83,8 @@ form.addEventListener("submit", (e) => {
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
 
-  if (!name || !email) {
-    alert("Name and Email are required!");
+  if (name.length < 2) {
+    alert("Name must contain at least 2 characters");
     return;
   }
 
@@ -98,8 +103,8 @@ form.addEventListener("submit", (e) => {
             ...c,
             name,
             email,
-            company: companyInput.value,
-            notes: notesInput.value,
+            company: companyInput.value.trim(),
+            notes: notesInput.value.trim(),
           }
         : c,
     );
@@ -109,8 +114,8 @@ form.addEventListener("submit", (e) => {
       id: generateId(),
       name,
       email,
-      company: companyInput.value,
-      notes: notesInput.value,
+      company: companyInput.value.trim(),
+      notes: notesInput.value.trim(),
     };
 
     clients.push(newClient);
@@ -126,6 +131,8 @@ form.addEventListener("submit", (e) => {
 // =========================
 window.editClient = function (id) {
   const client = clients.find((c) => c.id === id);
+
+  if (!client) return;
 
   nameInput.value = client.name;
   emailInput.value = client.email;
@@ -155,7 +162,7 @@ sortSelect.addEventListener("change", (e) => {
   const key = e.target.value;
 
   const sorted = [...clients].sort((a, b) =>
-    (a[key] || "").toString().localeCompare((b[key] || "").toString()),
+    String(a[key] ?? "").localeCompare(String(b[key] ?? "")),
   );
 
   renderClients(sorted);

@@ -5,11 +5,19 @@ const INVOICES_KEY = "invoices";
 // GET DATA
 // =========================
 export function getClients() {
-  return JSON.parse(localStorage.getItem(CLIENTS_KEY)) || [];
+  try {
+    return JSON.parse(localStorage.getItem(CLIENTS_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
 }
 
 export function getInvoices() {
-  return JSON.parse(localStorage.getItem(INVOICES_KEY)) || [];
+  try {
+    return JSON.parse(localStorage.getItem(INVOICES_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
 }
 
 // =========================

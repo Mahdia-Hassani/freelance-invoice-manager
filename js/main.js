@@ -10,8 +10,17 @@ function initSidebar() {
 
   if (!sidebar || !toggleBtn) return;
 
+  // Initial icon
+  toggleBtn.innerHTML = sidebar.classList.contains("collapsed")
+    ? '<i class="fa-solid fa-angle-right"></i>'
+    : '<i class="fa-solid fa-angle-left"></i>';
+
   toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("collapsed");
+
+    toggleBtn.innerHTML = sidebar.classList.contains("collapsed")
+      ? '<i class="fa-solid fa-angle-right"></i>'
+      : '<i class="fa-solid fa-angle-left"></i>';
   });
 }
 
@@ -35,7 +44,13 @@ function loadStats() {
     return sum + Number(inv.amount || 0);
   }, 0);
 
-  document.getElementById("totalRevenue").textContent = `$${revenue}`;
+  document.getElementById("totalRevenue").textContent = new Intl.NumberFormat(
+    "en-US",
+    {
+      style: "currency",
+      currency: "USD",
+    },
+  ).format(revenue);
 
   // Paid / Unpaid
   const paid = invoices.filter((inv) => inv.paid).length;
@@ -62,17 +77,17 @@ function loadStats() {
 
     recent.forEach((inv) => {
       const row = document.createElement("tr");
-
+      const client = clients.find((c) => c.id == inv.clientId);
       row.innerHTML = `
-                <td>${inv.clientId}</td>
-                <td>${inv.title}</td>
-                <td>$${inv.amount}</td>
-                <td>
-                    <span class="badge ${inv.paid ? "paid" : "unpaid"}">
-                        ${inv.paid ? "🟢 Paid" : "🔴 Unpaid"}
-                    </span>
-                </td>
-            `;
+    <td>${client ? client.name : "Unknown"}</td>
+    <td>${inv.title}</td>
+    <td>$${inv.amount}</td>
+    <td>
+        <span class="badge ${inv.paid ? "paid" : "unpaid"}">
+            ${inv.paid ? "🟢 Paid" : "🔴 Unpaid"}
+        </span>
+    </td>
+`;
 
       tbody.appendChild(row);
     });
